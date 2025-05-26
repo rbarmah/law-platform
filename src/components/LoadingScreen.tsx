@@ -6,28 +6,17 @@ const LoadingScreen = () => {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        className="w-16 h-16 rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white relative mb-6"
       >
-        <svg 
-          className="w-16 h-16 text-blue-600" 
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24" 
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth={2} 
-            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" 
-          />
-        </svg>
+        <div className="absolute top-1 right-1 w-3 h-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-sm"></div>
+        <span className="text-2xl font-bold">M</span>
       </motion.div>
       <motion.h3 
-        className="mt-4 font-bold text-lg text-blue-600"
+        className="mt-4 font-bold text-lg bg-gradient-to-r from-teal-600 to-teal-500 bg-clip-text text-transparent"
         animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
-        Loading LawLearn...
+        Loading Masterie...
       </motion.h3>
     </div>
   );
