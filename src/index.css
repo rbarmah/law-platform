@@ -4,23 +4,6 @@
 
 @layer base {
   :root {
-    /* Hubtel Brand Colors */
-    --color-hubtel-orange: #FF6634;
-    --color-hubtel-teal: #00C8C8;
-    --color-hubtel-navy: #001B36;
-    
-    /* Extended Navy Palette */
-    --color-navy-50: #F0F4F8;
-    --color-navy-100: #D9E2EC;
-    --color-navy-200: #BCCCDC;
-    --color-navy-300: #9FB3C8;
-    --color-navy-400: #829AB1;
-    --color-navy-500: #486581;
-    --color-navy-600: #334E68;
-    --color-navy-700: #243B53;
-    --color-navy-800: #102A43;
-    --color-navy-900: #001B36;  /* Hubtel Navy */
-    
     @apply bg-slate-50;
   }
 
@@ -33,22 +16,15 @@
   }
 
   h1 {
-    @apply text-3xl font-bold mb-4;
-    color: var(--color-hubtel-navy);
+    @apply text-3xl font-bold mb-4 text-hubtel-navy dark:text-white;
   }
 
   h2 {
-    @apply text-2xl font-bold mb-3;
-    color: var(--color-hubtel-navy);
+    @apply text-2xl font-bold mb-3 text-hubtel-navy dark:text-white;
   }
 
   h3 {
-    @apply text-xl font-bold mb-2;
-    color: var(--color-hubtel-navy);
-  }
-
-  .dark h1, .dark h2, .dark h3 {
-    @apply text-white;
+    @apply text-xl font-bold mb-2 text-hubtel-navy dark:text-white;
   }
 }
 
@@ -58,7 +34,7 @@
   }
 
   .dark .card {
-    @apply bg-navy-800 border-navy-700;
+    @apply bg-slate-800 border-slate-700;
   }
 
   .btn {
@@ -66,13 +42,11 @@
   }
 
   .btn-primary {
-    background-color: var(--color-hubtel-orange);
-    @apply text-white hover:brightness-110 active:brightness-90;
+    @apply bg-hubtel-orange text-white hover:brightness-110 active:brightness-90;
   }
 
   .btn-secondary {
-    background-color: var(--color-hubtel-teal);
-    @apply text-white hover:brightness-110 active:brightness-90;
+    @apply bg-hubtel-teal text-white hover:brightness-110 active:brightness-90;
   }
 
   .btn-success {
@@ -84,11 +58,11 @@
   }
 
   .input {
-    @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#00C8C8] focus:border-transparent;
+    @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-hubtel-teal focus:border-transparent;
   }
 
   .dark .input {
-    @apply bg-navy-800 border-navy-600 text-white;
+    @apply bg-slate-800 border-slate-600 text-white;
   }
 
   .badge {
@@ -96,13 +70,11 @@
   }
 
   .badge-primary {
-    background-color: var(--color-hubtel-orange);
-    @apply text-white;
+    @apply bg-hubtel-orange text-white;
   }
 
   .badge-success {
-    background-color: var(--color-hubtel-teal);
-    @apply text-white;
+    @apply bg-hubtel-teal text-white;
   }
 
   .badge-warning {
@@ -122,40 +94,28 @@
   }
 
   .form-label {
-    color: var(--color-hubtel-navy);
-    @apply block text-sm font-medium mb-1;
-  }
-
-  .dark .form-label {
-    @apply text-slate-300;
+    @apply block text-sm font-medium mb-1 text-hubtel-navy dark:text-slate-300;
   }
 
   /* Quiz related styles */
   .quiz-option {
-    @apply relative block w-full p-4 mb-3 border rounded-lg transition-all cursor-pointer border-slate-200;
-  }
-
-  .dark .quiz-option {
-    @apply border-navy-700;
+    @apply relative block w-full p-4 mb-3 border rounded-lg transition-all cursor-pointer border-slate-200 dark:border-slate-700;
   }
 
   .quiz-option:hover {
-    border-color: var(--color-hubtel-teal);
+    @apply border-hubtel-teal;
   }
 
   .quiz-option.selected {
-    border-color: var(--color-hubtel-teal);
-    background-color: rgba(0, 200, 200, 0.1);
+    @apply border-hubtel-teal bg-hubtel-teal/10;
   }
 
   .quiz-option.correct {
-    border-color: var(--color-hubtel-teal);
-    background-color: rgba(0, 200, 200, 0.1);
+    @apply border-hubtel-teal bg-hubtel-teal/10;
   }
 
   .quiz-option.incorrect {
-    border-color: var(--color-hubtel-orange);
-    background-color: rgba(255, 102, 52, 0.1);
+    @apply border-hubtel-orange bg-hubtel-orange/10;
   }
 
   /* Animation classes */
@@ -169,37 +129,20 @@
 
   /* XP progress bar */
   .xp-progress {
-    @apply h-2 bg-slate-200 rounded-full overflow-hidden;
-  }
-
-  .dark .xp-progress {
-    @apply bg-navy-700;
+    @apply h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden;
   }
 
   .xp-progress-bar {
-    @apply h-full transition-all duration-300;
-    background: linear-gradient(to right, var(--color-hubtel-orange), var(--color-hubtel-teal));
+    @apply h-full bg-gradient-to-r from-hubtel-orange to-hubtel-teal transition-all duration-300;
   }
 
   /* Markdown styles */
   .prose {
-    color: var(--color-hubtel-navy);
-  }
-
-  .dark .prose {
-    @apply text-slate-300;
+    @apply text-hubtel-navy dark:text-slate-300;
   }
 
   .prose h1, .prose h2, .prose h3, .prose h4 {
-    color: var(--color-hubtel-navy);
-    @apply font-bold mb-4;
-  }
-
-  .dark .prose h1,
-  .dark .prose h2,
-  .dark .prose h3,
-  .dark .prose h4 {
-    @apply text-white;
+    @apply text-hubtel-navy dark:text-white font-bold mb-4;
   }
 
   .prose p {
@@ -219,27 +162,15 @@
   }
 
   .prose code {
-    @apply bg-slate-100 px-1 py-0.5 rounded;
-  }
-
-  .dark .prose code {
-    @apply bg-navy-800;
+    @apply bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded;
   }
 
   .prose pre {
-    @apply bg-slate-100 p-4 rounded-lg mb-4 overflow-x-auto;
-  }
-
-  .dark .prose pre {
-    @apply bg-navy-800;
+    @apply bg-slate-100 dark:bg-slate-800 p-4 rounded-lg mb-4 overflow-x-auto;
   }
 
   .prose blockquote {
-    @apply border-l-4 border-slate-300 pl-4 italic;
-  }
-
-  .dark .prose blockquote {
-    @apply border-navy-600;
+    @apply border-l-4 border-slate-300 dark:border-slate-600 pl-4 italic;
   }
 }
 
@@ -254,10 +185,6 @@
   }
 
   .glassmorphism {
-    @apply bg-white/70 backdrop-blur-md;
-  }
-
-  .dark .glassmorphism {
-    background-color: rgba(0, 27, 54, 0.7);
+    @apply bg-white/70 dark:bg-hubtel-navy/70 backdrop-blur-md;
   }
 }
