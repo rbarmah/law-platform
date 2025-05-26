@@ -4,11 +4,30 @@
 
 @layer base {
   :root {
-    @apply bg-slate-50 text-slate-800;
+    --color-navy-50: #E7E9EF;
+    --color-navy-100: #C2C9D6;
+    --color-navy-200: #9BA6BB;
+    --color-navy-300: #7482A0;
+    --color-navy-400: #576686;
+    --color-navy-500: #384766;
+    --color-navy-600: #303D56;
+    --color-navy-700: #283347;
+    --color-navy-800: #202937;
+    --color-navy-900: #182028;
+    
+    --color-primary-500: #0ea5e9;
+    --color-primary-600: #0284c7;
+    --color-primary-700: #0369a1;
+    
+    --color-secondary-500: #8b5cf6;
+    --color-secondary-600: #7c3aed;
+    --color-secondary-700: #6d28d9;
+    
+    @apply bg-slate-50;
   }
 
-  :root.dark {
-    @apply bg-navy-900 text-slate-100;
+  .dark {
+    @apply bg-slate-900;
   }
 
   body {
@@ -16,21 +35,41 @@
   }
 
   h1 {
-    @apply text-3xl font-bold mb-4 text-navy-900 dark:text-white;
+    @apply text-3xl font-bold mb-4;
+    color: var(--color-navy-900);
   }
 
   h2 {
-    @apply text-2xl font-bold mb-3 text-navy-800 dark:text-slate-100;
+    @apply text-2xl font-bold mb-3;
+    color: var(--color-navy-800);
   }
 
   h3 {
-    @apply text-xl font-bold mb-2 text-navy-700 dark:text-slate-200;
+    @apply text-xl font-bold mb-2;
+    color: var(--color-navy-700);
+  }
+
+  .dark h1 {
+    @apply text-white;
+  }
+
+  .dark h2 {
+    @apply text-slate-100;
+  }
+
+  .dark h3 {
+    @apply text-slate-200;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white dark:bg-navy-800 rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg border border-slate-100 dark:border-navy-700;
+    @apply bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg border border-slate-100;
+  }
+
+  .dark .card {
+    background-color: var(--color-navy-800);
+    border-color: var(--color-navy-700);
   }
 
   .btn {
@@ -38,11 +77,29 @@
   }
 
   .btn-primary {
-    @apply bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700;
+    background-color: var(--color-primary-500);
+    @apply text-white;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-600);
+  }
+
+  .btn-primary:active {
+    background-color: var(--color-primary-700);
   }
 
   .btn-secondary {
-    @apply bg-secondary-500 text-white hover:bg-secondary-600 active:bg-secondary-700;
+    background-color: var(--color-secondary-500);
+    @apply text-white;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-secondary-600);
+  }
+
+  .btn-secondary:active {
+    background-color: var(--color-secondary-700);
   }
 
   .btn-success {
@@ -54,7 +111,17 @@
   }
 
   .input {
-    @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent dark:bg-navy-800 dark:border-navy-600 dark:text-white;
+    @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:border-transparent;
+  }
+
+  .dark .input {
+    background-color: var(--color-navy-800);
+    border-color: var(--color-navy-600);
+    @apply text-white;
+  }
+
+  .input:focus {
+    --tw-ring-color: var(--color-secondary-500);
   }
 
   .badge {
@@ -62,19 +129,35 @@
   }
 
   .badge-primary {
-    @apply bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300;
+    @apply bg-blue-100 text-blue-800;
+  }
+
+  .dark .badge-primary {
+    @apply bg-blue-900/30 text-blue-300;
   }
 
   .badge-success {
-    @apply bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300;
+    @apply bg-emerald-100 text-emerald-800;
+  }
+
+  .dark .badge-success {
+    @apply bg-emerald-900/30 text-emerald-300;
   }
 
   .badge-warning {
-    @apply bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300;
+    @apply bg-amber-100 text-amber-800;
+  }
+
+  .dark .badge-warning {
+    @apply bg-amber-900/30 text-amber-300;
   }
 
   .badge-danger {
-    @apply bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300;
+    @apply bg-rose-100 text-rose-800;
+  }
+
+  .dark .badge-danger {
+    @apply bg-rose-900/30 text-rose-300;
   }
 
   .container {
@@ -86,25 +169,51 @@
   }
 
   .form-label {
-    @apply block text-sm font-medium text-navy-700 dark:text-slate-300 mb-1;
+    color: var(--color-navy-700);
+    @apply block text-sm font-medium mb-1;
+  }
+
+  .dark .form-label {
+    @apply text-slate-300;
   }
 
   /* Quiz related styles */
   .quiz-option {
-    @apply relative block w-full p-4 mb-3 border rounded-lg transition-all cursor-pointer
-      border-slate-200 dark:border-navy-700 hover:border-secondary-500 dark:hover:border-secondary-500;
+    @apply relative block w-full p-4 mb-3 border rounded-lg transition-all cursor-pointer border-slate-200;
+  }
+
+  .dark .quiz-option {
+    border-color: var(--color-navy-700);
+  }
+
+  .quiz-option:hover {
+    border-color: var(--color-secondary-500);
   }
 
   .quiz-option.selected {
-    @apply border-secondary-500 dark:border-secondary-500 bg-secondary-50 dark:bg-secondary-900/30;
+    border-color: var(--color-secondary-500);
+    @apply bg-violet-50;
+  }
+
+  .dark .quiz-option.selected {
+    border-color: var(--color-secondary-500);
+    @apply bg-violet-900/30;
   }
 
   .quiz-option.correct {
-    @apply border-emerald-500 dark:border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30;
+    @apply border-emerald-500 bg-emerald-50;
+  }
+
+  .dark .quiz-option.correct {
+    @apply border-emerald-500 bg-emerald-900/30;
   }
 
   .quiz-option.incorrect {
-    @apply border-rose-500 dark:border-rose-500 bg-rose-50 dark:bg-rose-900/30;
+    @apply border-rose-500 bg-rose-50;
+  }
+
+  .dark .quiz-option.incorrect {
+    @apply border-rose-500 bg-rose-900/30;
   }
 
   /* Animation classes */
@@ -118,20 +227,37 @@
 
   /* XP progress bar */
   .xp-progress {
-    @apply h-2 bg-slate-200 dark:bg-navy-700 rounded-full overflow-hidden;
+    @apply h-2 bg-slate-200 rounded-full overflow-hidden;
+  }
+
+  .dark .xp-progress {
+    background-color: var(--color-navy-700);
   }
 
   .xp-progress-bar {
-    @apply h-full bg-gradient-to-r from-primary-500 to-secondary-500 transition-all duration-300;
+    @apply h-full transition-all duration-300;
+    background: linear-gradient(to right, var(--color-primary-500), var(--color-secondary-500));
   }
 
   /* Markdown styles */
   .prose {
-    @apply text-slate-700 dark:text-slate-300;
+    @apply text-slate-700;
+  }
+
+  .dark .prose {
+    @apply text-slate-300;
   }
 
   .prose h1, .prose h2, .prose h3, .prose h4 {
-    @apply text-navy-900 dark:text-white font-bold mb-4;
+    color: var(--color-navy-900);
+    @apply font-bold mb-4;
+  }
+
+  .dark .prose h1,
+  .dark .prose h2,
+  .dark .prose h3,
+  .dark .prose h4 {
+    @apply text-white;
   }
 
   .prose p {
@@ -151,15 +277,27 @@
   }
 
   .prose code {
-    @apply bg-slate-100 dark:bg-navy-800 px-1 py-0.5 rounded;
+    @apply bg-slate-100 px-1 py-0.5 rounded;
+  }
+
+  .dark .prose code {
+    background-color: var(--color-navy-800);
   }
 
   .prose pre {
-    @apply bg-slate-100 dark:bg-navy-800 p-4 rounded-lg mb-4 overflow-x-auto;
+    @apply bg-slate-100 p-4 rounded-lg mb-4 overflow-x-auto;
+  }
+
+  .dark .prose pre {
+    background-color: var(--color-navy-800);
   }
 
   .prose blockquote {
-    @apply border-l-4 border-slate-300 dark:border-navy-600 pl-4 italic;
+    @apply border-l-4 border-slate-300 pl-4 italic;
+  }
+
+  .dark .prose blockquote {
+    border-color: var(--color-navy-600);
   }
 }
 
@@ -174,6 +312,10 @@
   }
 
   .glassmorphism {
-    @apply bg-white/70 dark:bg-navy-900/70 backdrop-blur-md;
+    @apply bg-white/70 backdrop-blur-md;
+  }
+
+  .dark .glassmorphism {
+    background-color: rgba(24, 32, 40, 0.7);
   }
 }
