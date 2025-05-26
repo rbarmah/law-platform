@@ -3,8 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    @apply bg-slate-50 text-slate-800;
+  }
+
+  :root.dark {
+    @apply bg-navy-900 text-slate-100;
+  }
+
   body {
-    @apply antialiased font-sans bg-slate-50 text-slate-800 dark:bg-navy-900 dark:text-slate-100;
+    @apply antialiased font-sans;
   }
 
   h1 {
