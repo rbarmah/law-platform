@@ -6,39 +6,25 @@
   :root {
     @apply bg-slate-50;
   }
-
+  
   .dark {
-    @apply bg-[#001B36];
+    @apply bg-hubtel-navy;
   }
-
+  
   body {
     @apply antialiased font-sans;
   }
-
+  
   h1 {
-    @apply text-3xl font-bold mb-4 text-[#001B36] dark:text-white;
+    @apply text-3xl font-bold mb-4 text-hubtel-navy dark:text-white;
   }
-
+  
   h2 {
-    @apply text-2xl font-bold mb-3 text-[#001B36] dark:text-white;
+    @apply text-2xl font-bold mb-3 text-hubtel-navy dark:text-white;
   }
-
+  
   h3 {
-    @apply text-xl font-bold mb-2 text-[#001B36] dark:text-white;
-  }
-}
-
-@layer utilities {
-  .bg-hubtel-orange {
-    @apply bg-[#FF6634];
-  }
-
-  .bg-hubtel-teal {
-    @apply bg-[#00C9B6];
-  }
-
-  .bg-hubtel-navy {
-    @apply bg-[#001B36];
+    @apply text-xl font-bold mb-2 text-hubtel-navy dark:text-white;
   }
 }
 
@@ -46,145 +32,141 @@
   .card {
     @apply bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg border border-slate-100;
   }
-
+  
   .dark .card {
     @apply bg-slate-800 border-slate-700;
   }
-
+  
   .btn {
     @apply px-4 py-2 rounded-lg font-medium transition-all;
   }
-
+  
   .btn-primary {
     @apply bg-hubtel-orange text-white hover:brightness-110 active:brightness-90;
   }
-
+  
   .btn-secondary {
     @apply bg-hubtel-teal text-white hover:brightness-110 active:brightness-90;
   }
-
+  
   .btn-success {
     @apply bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800;
   }
-
+  
   .btn-danger {
     @apply bg-rose-600 text-white hover:bg-rose-700 active:bg-rose-800;
   }
-
+  
   .input {
     @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-hubtel-teal focus:border-transparent;
   }
-
+  
   .dark .input {
     @apply bg-slate-800 border-slate-600 text-white;
   }
-
+  
   .badge {
     @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
   }
-
+  
   .badge-primary {
     @apply bg-hubtel-orange text-white;
   }
-
+  
   .badge-success {
     @apply bg-hubtel-teal text-white;
   }
-
+  
   .badge-warning {
     @apply bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300;
   }
-
+  
   .badge-danger {
     @apply bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300;
   }
-
+  
   .container {
     @apply max-w-7xl mx-auto;
   }
-
+  
   .form-group {
     @apply mb-4;
   }
-
+  
   .form-label {
-    @apply block text-sm font-medium mb-1 text-[#001B36] dark:text-slate-300;
+    @apply block text-sm font-medium mb-1 text-hubtel-navy dark:text-slate-300;
   }
-
+  
   /* Quiz related styles */
   .quiz-option {
     @apply relative block w-full p-4 mb-3 border rounded-lg transition-all cursor-pointer border-slate-200 dark:border-slate-700;
   }
-
+  
   .quiz-option:hover {
     @apply border-hubtel-teal;
   }
-
+  
   .quiz-option.selected {
     @apply border-hubtel-teal bg-hubtel-teal/10;
   }
-
+  
   .quiz-option.correct {
     @apply border-hubtel-teal bg-hubtel-teal/10;
   }
-
+  
   .quiz-option.incorrect {
     @apply border-hubtel-orange bg-hubtel-orange/10;
   }
-
-  /* Animation classes */
-  .pulse {
-    @apply animate-pulse;
-  }
-
-  .fade-in {
-    @apply animate-fadeIn;
-  }
-
+  
   /* XP progress bar */
   .xp-progress {
     @apply h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden;
   }
-
+  
   .xp-progress-bar {
     @apply h-full bg-gradient-to-r from-hubtel-orange to-hubtel-teal transition-all duration-300;
   }
-
+  
   /* Markdown styles */
   .prose {
-    @apply text-[#001B36] dark:text-slate-300;
+    @apply text-hubtel-navy dark:text-slate-300;
   }
-
+  
   .prose h1, .prose h2, .prose h3, .prose h4 {
-    @apply text-[#001B36] dark:text-white font-bold mb-4;
+    @apply text-hubtel-navy dark:text-white font-bold mb-4;
   }
-
+  
   .prose p {
     @apply mb-4;
   }
-
+  
   .prose ul {
     @apply list-disc list-inside mb-4;
   }
-
+  
   .prose ol {
     @apply list-decimal list-inside mb-4;
   }
-
+  
   .prose li {
     @apply mb-2;
   }
-
+  
   .prose code {
     @apply bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded;
   }
-
+  
   .prose pre {
     @apply bg-slate-100 dark:bg-slate-800 p-4 rounded-lg mb-4 overflow-x-auto;
   }
-
+  
   .prose blockquote {
     @apply border-l-4 border-slate-300 dark:border-slate-600 pl-4 italic;
+  }
+  
+  /* Glassmorphism utility */
+  .glassmorphism {
+    @apply bg-white/70 dark:bg-hubtel-navy/70 backdrop-blur-md;
   }
 }
 
@@ -192,13 +174,9 @@
   .animate-fadeIn {
     animation: fadeIn 0.5s ease-in-out;
   }
-
+  
   @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
-  }
-
-  .glassmorphism {
-    @apply bg-white/70 dark:bg-hubtel-navy/70 backdrop-blur-md;
   }
 }
