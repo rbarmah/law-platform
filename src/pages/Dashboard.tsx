@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { BookOpen, Target, Award, LucideIcon, TrendingUp, Clock, Calendar, Trophy } from 'lucide-react';
+import { BookOpen, Target, Award, DivideIcon as LucideIcon, TrendingUp, Clock, Calendar, Trophy } from 'lucide-react';
 import { useAuthStore } from '../store/useAuthStore';
 import UserXPProgress from '../components/UserXPProgress';
 import { getCategories, getUserAchievements } from '../lib/supabase';
