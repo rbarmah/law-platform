@@ -187,7 +187,7 @@ const Register = () => {
                   <p className="text-slate-600 font-medium">
                     Already have an account?{' '}
                     <button 
-                      onClick={() => console.log('Navigate to login')}
+                      onClick={() => window.location.href = '/login'}
                       className="text-teal-600 hover:text-teal-700 font-semibold transition-colors relative group"
                     >
                       Sign in
