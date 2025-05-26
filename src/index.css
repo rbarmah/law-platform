@@ -179,4 +179,41 @@
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
+  
+  /* Auth page background pattern */
+  .bg-auth-pattern {
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(0, 201, 182, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(255, 102, 52, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(0, 27, 54, 0.1) 0%, transparent 50%);
+  }
+  
+  /* Glass shadow effects */
+  .shadow-glass {
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  
+  .shadow-glass-hover {
+    box-shadow: 
+      0 16px 64px 0 rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Gradient animation */
+  .animate-gradient {
+    animation: gradient 3s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0%, 100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 0.2;
+    }
+    50% {
+      transform: scale(1.1) rotate(180deg);
+      opacity: 0.3;
+    }
+  }
 }
