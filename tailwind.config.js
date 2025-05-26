@@ -8,12 +8,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        'hubtel': {
+        hubtel: {
           orange: '#FF6634',
           teal: '#00C8C8',
           navy: '#001B36',
         },
-        'slate': {
+        slate: {
           50: '#F8FAFC',
           100: '#F1F5F9',
           200: '#E2E8F0',
@@ -42,5 +42,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
