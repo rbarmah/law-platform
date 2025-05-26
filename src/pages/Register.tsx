@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AlertCircle, Mail, Lock, User } from 'lucide-react';
+import { AlertCircle, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 
 const Register = () => {
   // Mock store functionality for demo
@@ -9,9 +9,11 @@ const Register = () => {
   const signUp = async (email, password, username) => {
     console.log('Sign up attempt:', { email, password, username });
   };
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [touched, setTouched] = useState({
     email: false,
     password: false,
@@ -29,126 +31,179 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="w-12 h-12 mx-auto mb-4 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-xl font-semibold text-white">H</span>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-teal-50/30"></div>
+      
+      {/* Floating Elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-teal-400/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-tl from-orange-400/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-teal-400/5 via-transparent to-orange-400/5 rounded-full blur-3xl"></div>
+
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-8">
+        <div className="w-full max-w-md">
+          {/* Main Card */}
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl shadow-teal-500/5 p-8 relative overflow-hidden">
+            {/* Subtle border gradient */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/20 via-transparent to-orange-500/20 p-px">
+              <div className="w-full h-full bg-white/90 rounded-3xl"></div>
             </div>
-            <h1 className="text-2xl font-semibold text-gray-900 mb-1">Create your account</h1>
-            <p className="text-gray-600 text-sm">Please fill in your details to get started</p>
+            
+            <div className="relative z-10">
+              {/* Header */}
+              <div className="text-center mb-8">
+                {/* Hubtel-inspired Logo */}
+                <div className="w-16 h-16 mx-auto mb-6 relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl rotate-12 opacity-20 blur-sm"></div>
+                  <div className="relative w-full h-full rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/25">
+                    <div className="absolute top-1 right-1 w-4 h-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-sm"></div>
+                    <span className="text-2xl font-bold text-white">H</span>
+                  </div>
+                </div>
+                
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent mb-2">
+                  Welcome to Hubtel
+                </h1>
+                <p className="text-slate-600 font-medium">Create your account to get started</p>
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="bg-gradient-to-r from-red-50 to-red-50/50 border border-red-200/60 rounded-2xl p-4 mb-6 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-transparent"></div>
+                  <div className="relative flex gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                    <p className="text-red-700 text-sm font-medium">{error}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Form */}
+              <div className="space-y-6">
+                {/* Username Field */}
+                <div className="group">
+                  <label className="block text-sm font-semibold text-slate-700 mb-3">
+                    Username
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-transparent rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-teal-500 transition-colors" />
+                    <input
+                      type="text"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      onBlur={() => setTouched(prev => ({ ...prev, username: true }))}
+                      className={`relative w-full pl-12 pr-4 py-4 bg-white/60 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/80 transition-all duration-300 font-medium ${
+                        touched.username && !username ? 'border-red-300 bg-red-50/50' : 'border-slate-200 hover:border-slate-300'
+                      }`}
+                      placeholder="Enter your username"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  {touched.username && !username && (
+                    <p className="mt-2 text-sm text-red-500 font-medium">Username is required</p>
+                  )}
+                </div>
+
+                {/* Email Field */}
+                <div className="group">
+                  <label className="block text-sm font-semibold text-slate-700 mb-3">
+                    Email address
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-transparent rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-teal-500 transition-colors" />
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
+                      className={`relative w-full pl-12 pr-4 py-4 bg-white/60 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/80 transition-all duration-300 font-medium ${
+                        touched.email && !email ? 'border-red-300 bg-red-50/50' : 'border-slate-200 hover:border-slate-300'
+                      }`}
+                      placeholder="Enter your email address"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  {touched.email && !email && (
+                    <p className="mt-2 text-sm text-red-500 font-medium">Email is required</p>
+                  )}
+                </div>
+
+                {/* Password Field */}
+                <div className="group">
+                  <label className="block text-sm font-semibold text-slate-700 mb-3">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-transparent rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-teal-500 transition-colors" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
+                      className={`relative w-full pl-12 pr-12 py-4 bg-white/60 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/80 transition-all duration-300 font-medium ${
+                        touched.password && !password ? 'border-red-300 bg-red-50/50' : 'border-slate-200 hover:border-slate-300'
+                      }`}
+                      placeholder="Create a secure password"
+                      disabled={isLoading}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                  {touched.password && !password && (
+                    <p className="mt-2 text-sm text-red-500 font-medium">Password is required</p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-2">
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={isLoading}
+                    className="group relative w-full py-4 px-6 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 active:from-teal-700 active:to-teal-800 text-white font-semibold rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg shadow-teal-500/25 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-0.5"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {isLoading ? (
+                      <div className="flex items-center justify-center gap-3">
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Creating your account...</span>
+                      </div>
+                    ) : (
+                      <span className="relative">Create Account</span>
+                    )}
+                  </button>
+                </div>
+
+                {/* Sign In Link */}
+                <div className="text-center pt-6 border-t border-slate-200/60">
+                  <p className="text-slate-600 font-medium">
+                    Already have an account?{' '}
+                    <button 
+                      onClick={() => console.log('Navigate to login')}
+                      className="text-teal-600 hover:text-teal-700 font-semibold transition-colors relative group"
+                    >
+                      Sign in
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-teal-600 group-hover:w-full transition-all duration-300"></span>
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Error Message */}
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-md mb-6 text-sm">
-              <div className="flex gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                <p>{error}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Form */}
-          <div className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Username
-              </label>
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onBlur={() => setTouched(prev => ({ ...prev, username: true }))}
-                  className={`w-full pl-10 pr-3 py-2.5 border rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                    touched.username && !username ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-white hover:border-gray-400'
-                  }`}
-                  placeholder="Enter username"
-                  disabled={isLoading}
-                />
-              </div>
-              {touched.username && !username && (
-                <p className="mt-1.5 text-sm text-red-600">Username is required</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Email address
-              </label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
-                  className={`w-full pl-10 pr-3 py-2.5 border rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                    touched.email && !email ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-white hover:border-gray-400'
-                  }`}
-                  placeholder="Enter email address"
-                  disabled={isLoading}
-                />
-              </div>
-              {touched.email && !email && (
-                <p className="mt-1.5 text-sm text-red-600">Email is required</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Password
-              </label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
-                  className={`w-full pl-10 pr-3 py-2.5 border rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                    touched.password && !password ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-white hover:border-gray-400'
-                  }`}
-                  placeholder="Enter password"
-                  disabled={isLoading}
-                />
-              </div>
-              {touched.password && !password && (
-                <p className="mt-1.5 text-sm text-red-600">Password is required</p>
-              )}
-            </div>
-
-            <button
-              type="button"
-              onClick={handleSubmit}
-              disabled={isLoading}
-              className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              {isLoading ? (
-                <div className="flex items-center justify-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Creating account...</span>
-                </div>
-              ) : (
-                'Create account'
-              )}
-            </button>
-
-            <div className="text-center pt-4">
-              <p className="text-sm text-gray-600">
-                Already have an account?{' '}
-                <button 
-                  onClick={() => console.log('Navigate to login')}
-                  className="text-blue-600 hover:text-blue-700 font-medium transition-colors bg-none border-none cursor-pointer"
-                >
-                  Sign in
-                </button>
-              </p>
-            </div>
+          {/* Trust Indicators */}
+          <div className="text-center mt-8">
+            <p className="text-sm text-slate-500 font-medium">
+              🔒 Your data is protected with enterprise-grade security
+            </p>
           </div>
         </div>
       </div>
