@@ -33,36 +33,36 @@ const Register = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-teal-50/30"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-teal-100/40"></div>
       
       {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-teal-400/10 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-tl from-orange-400/10 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-teal-400/5 via-transparent to-orange-400/5 rounded-full blur-3xl"></div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-teal-400/15 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-tl from-orange-400/15 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-teal-400/8 via-transparent to-orange-400/8 rounded-full blur-3xl"></div>
 
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-8">
         <div className="w-full max-w-md">
           {/* Main Card */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl shadow-teal-500/5 p-8 relative overflow-hidden">
+          <div className="bg-white/90 backdrop-blur-xl rounded-3xl border border-white/30 shadow-2xl shadow-teal-500/8 p-8 relative overflow-hidden">
             {/* Subtle border gradient */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-teal-500/20 via-transparent to-orange-500/20 p-px">
-              <div className="w-full h-full bg-white/90 rounded-3xl"></div>
+              <div className="w-full h-full bg-white/95 rounded-3xl"></div>
             </div>
             
             <div className="relative z-10">
               {/* Header */}
               <div className="text-center mb-8">
-                {/* Hubtel-inspired Logo */}
+                {/* Masterie Logo */}
                 <div className="w-16 h-16 mx-auto mb-6 relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl rotate-12 opacity-20 blur-sm"></div>
                   <div className="relative w-full h-full rounded-2xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg shadow-teal-500/25">
                     <div className="absolute top-1 right-1 w-4 h-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-sm"></div>
-                    <span className="text-2xl font-bold text-white">H</span>
+                    <span className="text-2xl font-bold text-white">M</span>
                   </div>
                 </div>
                 
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent mb-2">
-                  Welcome to Hubtel
+                  Welcome to Masterie
                 </h1>
                 <p className="text-slate-600 font-medium">Create your account to get started</p>
               </div>
@@ -93,7 +93,7 @@ const Register = () => {
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       onBlur={() => setTouched(prev => ({ ...prev, username: true }))}
-                      className={`relative w-full pl-12 pr-4 py-4 bg-white/60 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/80 transition-all duration-300 font-medium ${
+                      className={`relative w-full pl-12 pr-4 py-4 bg-white/80 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/90 transition-all duration-300 font-medium ${
                         touched.username && !username ? 'border-red-300 bg-red-50/50' : 'border-slate-200 hover:border-slate-300'
                       }`}
                       placeholder="Enter your username"
@@ -118,7 +118,7 @@ const Register = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
-                      className={`relative w-full pl-12 pr-4 py-4 bg-white/60 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/80 transition-all duration-300 font-medium ${
+                      className={`relative w-full pl-12 pr-4 py-4 bg-white/80 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/90 transition-all duration-300 font-medium ${
                         touched.email && !email ? 'border-red-300 bg-red-50/50' : 'border-slate-200 hover:border-slate-300'
                       }`}
                       placeholder="Enter your email address"
@@ -143,7 +143,7 @@ const Register = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
-                      className={`relative w-full pl-12 pr-12 py-4 bg-white/60 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/80 transition-all duration-300 font-medium ${
+                      className={`relative w-full pl-12 pr-12 py-4 bg-white/80 border-2 rounded-2xl text-slate-800 placeholder-slate-400 focus:outline-none focus:border-teal-500 focus:bg-white/90 transition-all duration-300 font-medium ${
                         touched.password && !password ? 'border-red-300 bg-red-50/50' : 'border-slate-200 hover:border-slate-300'
                       }`}
                       placeholder="Create a secure password"
