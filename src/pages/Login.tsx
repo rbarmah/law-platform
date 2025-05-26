@@ -13,14 +13,37 @@ const Login = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setTouched({ email: true, password: true });
+    
+    // Basic validation
+    if (!email || !password) {
+      return;
+    }
+    
     await signIn(email, password);
   };
 
   const getErrorMessage = () => {
-    if (error?.includes('Invalid login credentials')) {
+    if (!error) return '';
+    
+    if (error.includes('Invalid login credentials')) {
       return 'The email or password you entered is incorrect. Please try again.';
     }
+    if (error.includes('Email not confirmed')) {
+      return 'Please check your email and confirm your account before signing in.';
+    }
+    if (error.includes('Too many requests')) {
+      return 'Too many login attempts. Please wait a moment before trying again.';
+    }
     return error;
+  };
+
+  const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const hasValidationErrors = () => {
+    return (touched.email && (!email || !isValidEmail(email))) ||
+           (touched.password && !password);
   };
 
   if (user) {
@@ -79,7 +102,9 @@ const Login = () => {
                     type="email"
                     id="email"
                     required
-                    className="input w-full pl-12 bg-white/10 border-white/10 text-white placeholder-white/40 focus:border-hubtel-teal/50 focus:ring-hubtel-teal/50"
+                    className={`input w-full pl-12 bg-white/10 border-white/10 text-white placeholder-white/40 focus:border-hubtel-teal/50 focus:ring-hubtel-teal/50 ${
+                      touched.email && (!email || !isValidEmail(email)) ? 'border-rose-500/50' : ''
+                    }`}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
@@ -91,6 +116,12 @@ const Login = () => {
                   <p className="text-sm text-rose-200/90 mt-2 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" />
                     Email is required
+                  </p>
+                )}
+                {touched.email && email && !isValidEmail(email) && (
+                  <p className="text-sm text-rose-200/90 mt-2 flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    Please enter a valid email address
                   </p>
                 )}
               </div>
@@ -111,7 +142,9 @@ const Login = () => {
                     type="password"
                     id="password"
                     required
-                    className="input w-full pl-12 bg-white/10 border-white/10 text-white placeholder-white/40 focus:border-hubtel-teal/50 focus:ring-hubtel-teal/50"
+                    className={`input w-full pl-12 bg-white/10 border-white/10 text-white placeholder-white/40 focus:border-hubtel-teal/50 focus:ring-hubtel-teal/50 ${
+                      touched.password && !password ? 'border-rose-500/50' : ''
+                    }`}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
@@ -129,10 +162,10 @@ const Login = () => {
 
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
+                whileHover={{ scale: isLoading ? 1 : 1.01 }}
+                whileTap={{ scale: isLoading ? 1 : 0.99 }}
                 className="btn w-full h-12 bg-gradient-to-r from-hubtel-orange to-hubtel-teal text-white font-semibold text-lg rounded-xl hover:brightness-110 active:brightness-90 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:brightness-100 transition-all duration-300"
-                disabled={isLoading}
+                disabled={isLoading || hasValidationErrors()}
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center gap-2">
