@@ -1,3 +1,5 @@
+import { Database as SupabaseDatabase } from '@supabase/supabase-js';
+
 export type User = {
   id: string;
   email: string;
@@ -8,10 +10,19 @@ export type User = {
   xp: number;
   streak_days: number;
   last_login: string;
+  selected_program?: string;
+}
+
+export type Program = {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  is_available: boolean;
 }
 
 export type Question = {
-  id: string;  // Changed from number to string to match UUID type
+  id: string;
   question_text: string;
   options: Array<{
     id: string;
@@ -21,6 +32,7 @@ export type Question = {
   explanation?: string;
   question_type: 'multiple_choice' | 'fill_in' | 'essay';
   topic_id: string;
+  program_id: string;
   difficulty: 'easy' | 'medium' | 'hard';
   created_at: string;
 }
@@ -28,7 +40,7 @@ export type Question = {
 export type UserAnswer = {
   id: string;
   user_id: string;
-  question_id: string;  // Changed from number to string to match UUID type
+  question_id: string;
   is_correct: boolean;
   answer_index: number | string;
   time_spent: number;
