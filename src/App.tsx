@@ -41,6 +41,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/update-password" element={<UpdatePassword />} />
+            
             <Route path="/program-selection" element={
               <ProtectedRoute>
                 <ProgramSelection />
@@ -49,43 +50,43 @@ function App() {
             
             <Route path="/" element={
               <ProtectedRoute>
-                {selectedProgram ? <Dashboard /> : <Navigate to="/program-selection\" replace />}
+                {selectedProgram ? <Dashboard /> : <Navigate to="/program-selection" replace />}
               </ProtectedRoute>
             } />
             
             <Route path="/quiz/:categoryId?" element={
               <ProtectedRoute>
-                <QuizPage />
+                {selectedProgram ? <QuizPage /> : <Navigate to="/program-selection" replace />}
               </ProtectedRoute>
             } />
             
             <Route path="/quiz-results" element={
               <ProtectedRoute>
-                <QuizResults />
+                {selectedProgram ? <QuizResults /> : <Navigate to="/program-selection" replace />}
               </ProtectedRoute>
             } />
             
             <Route path="/profile" element={
               <ProtectedRoute>
-                <Profile />
+                {selectedProgram ? <Profile /> : <Navigate to="/program-selection" replace />}
               </ProtectedRoute>
             } />
             
             <Route path="/leaderboard" element={
               <ProtectedRoute>
-                <Leaderboard />
+                {selectedProgram ? <Leaderboard /> : <Navigate to="/program-selection" replace />}
               </ProtectedRoute>
             } />
             
             <Route path="/achievements" element={
               <ProtectedRoute>
-                <Achievements />
+                {selectedProgram ? <Achievements /> : <Navigate to="/program-selection" replace />}
               </ProtectedRoute>
             } />
             
             <Route path="/categories" element={
               <ProtectedRoute>
-                <Categories />
+                {selectedProgram ? <Categories /> : <Navigate to="/program-selection" replace />}
               </ProtectedRoute>
             } />
           </Routes>
