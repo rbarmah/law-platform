@@ -4,30 +4,28 @@
 
 @layer base {
   :root {
-    --color-navy-50: #E7E9EF;
-    --color-navy-100: #C2C9D6;
-    --color-navy-200: #9BA6BB;
-    --color-navy-300: #7482A0;
-    --color-navy-400: #576686;
-    --color-navy-500: #384766;
-    --color-navy-600: #303D56;
-    --color-navy-700: #283347;
-    --color-navy-800: #202937;
-    --color-navy-900: #182028;
+    /* Hubtel Brand Colors */
+    --color-hubtel-orange: #FF6634;
+    --color-hubtel-teal: #00C8C8;
+    --color-hubtel-navy: #001B36;
     
-    --color-primary-500: #0ea5e9;
-    --color-primary-600: #0284c7;
-    --color-primary-700: #0369a1;
-    
-    --color-secondary-500: #8b5cf6;
-    --color-secondary-600: #7c3aed;
-    --color-secondary-700: #6d28d9;
+    /* Extended Navy Palette */
+    --color-navy-50: #F0F4F8;
+    --color-navy-100: #D9E2EC;
+    --color-navy-200: #BCCCDC;
+    --color-navy-300: #9FB3C8;
+    --color-navy-400: #829AB1;
+    --color-navy-500: #486581;
+    --color-navy-600: #334E68;
+    --color-navy-700: #243B53;
+    --color-navy-800: #102A43;
+    --color-navy-900: #001B36;  /* Hubtel Navy */
     
     @apply bg-slate-50;
   }
 
   .dark {
-    @apply bg-slate-900;
+    @apply bg-[#001B36];
   }
 
   body {
@@ -36,29 +34,21 @@
 
   h1 {
     @apply text-3xl font-bold mb-4;
-    color: var(--color-navy-900);
+    color: var(--color-hubtel-navy);
   }
 
   h2 {
     @apply text-2xl font-bold mb-3;
-    color: var(--color-navy-800);
+    color: var(--color-hubtel-navy);
   }
 
   h3 {
     @apply text-xl font-bold mb-2;
-    color: var(--color-navy-700);
+    color: var(--color-hubtel-navy);
   }
 
-  .dark h1 {
+  .dark h1, .dark h2, .dark h3 {
     @apply text-white;
-  }
-
-  .dark h2 {
-    @apply text-slate-100;
-  }
-
-  .dark h3 {
-    @apply text-slate-200;
   }
 }
 
@@ -68,8 +58,7 @@
   }
 
   .dark .card {
-    background-color: var(--color-navy-800);
-    border-color: var(--color-navy-700);
+    @apply bg-navy-800 border-navy-700;
   }
 
   .btn {
@@ -77,29 +66,13 @@
   }
 
   .btn-primary {
-    background-color: var(--color-primary-500);
-    @apply text-white;
-  }
-
-  .btn-primary:hover {
-    background-color: var(--color-primary-600);
-  }
-
-  .btn-primary:active {
-    background-color: var(--color-primary-700);
+    background-color: var(--color-hubtel-orange);
+    @apply text-white hover:brightness-110 active:brightness-90;
   }
 
   .btn-secondary {
-    background-color: var(--color-secondary-500);
-    @apply text-white;
-  }
-
-  .btn-secondary:hover {
-    background-color: var(--color-secondary-600);
-  }
-
-  .btn-secondary:active {
-    background-color: var(--color-secondary-700);
+    background-color: var(--color-hubtel-teal);
+    @apply text-white hover:brightness-110 active:brightness-90;
   }
 
   .btn-success {
@@ -111,17 +84,11 @@
   }
 
   .input {
-    @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:border-transparent;
+    @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#00C8C8] focus:border-transparent;
   }
 
   .dark .input {
-    background-color: var(--color-navy-800);
-    border-color: var(--color-navy-600);
-    @apply text-white;
-  }
-
-  .input:focus {
-    --tw-ring-color: var(--color-secondary-500);
+    @apply bg-navy-800 border-navy-600 text-white;
   }
 
   .badge {
@@ -129,35 +96,21 @@
   }
 
   .badge-primary {
-    @apply bg-blue-100 text-blue-800;
-  }
-
-  .dark .badge-primary {
-    @apply bg-blue-900/30 text-blue-300;
+    background-color: var(--color-hubtel-orange);
+    @apply text-white;
   }
 
   .badge-success {
-    @apply bg-emerald-100 text-emerald-800;
-  }
-
-  .dark .badge-success {
-    @apply bg-emerald-900/30 text-emerald-300;
+    background-color: var(--color-hubtel-teal);
+    @apply text-white;
   }
 
   .badge-warning {
-    @apply bg-amber-100 text-amber-800;
-  }
-
-  .dark .badge-warning {
-    @apply bg-amber-900/30 text-amber-300;
+    @apply bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300;
   }
 
   .badge-danger {
-    @apply bg-rose-100 text-rose-800;
-  }
-
-  .dark .badge-danger {
-    @apply bg-rose-900/30 text-rose-300;
+    @apply bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300;
   }
 
   .container {
@@ -169,7 +122,7 @@
   }
 
   .form-label {
-    color: var(--color-navy-700);
+    color: var(--color-hubtel-navy);
     @apply block text-sm font-medium mb-1;
   }
 
@@ -183,37 +136,26 @@
   }
 
   .dark .quiz-option {
-    border-color: var(--color-navy-700);
+    @apply border-navy-700;
   }
 
   .quiz-option:hover {
-    border-color: var(--color-secondary-500);
+    border-color: var(--color-hubtel-teal);
   }
 
   .quiz-option.selected {
-    border-color: var(--color-secondary-500);
-    @apply bg-violet-50;
-  }
-
-  .dark .quiz-option.selected {
-    border-color: var(--color-secondary-500);
-    @apply bg-violet-900/30;
+    border-color: var(--color-hubtel-teal);
+    background-color: rgba(0, 200, 200, 0.1);
   }
 
   .quiz-option.correct {
-    @apply border-emerald-500 bg-emerald-50;
-  }
-
-  .dark .quiz-option.correct {
-    @apply border-emerald-500 bg-emerald-900/30;
+    border-color: var(--color-hubtel-teal);
+    background-color: rgba(0, 200, 200, 0.1);
   }
 
   .quiz-option.incorrect {
-    @apply border-rose-500 bg-rose-50;
-  }
-
-  .dark .quiz-option.incorrect {
-    @apply border-rose-500 bg-rose-900/30;
+    border-color: var(--color-hubtel-orange);
+    background-color: rgba(255, 102, 52, 0.1);
   }
 
   /* Animation classes */
@@ -231,17 +173,17 @@
   }
 
   .dark .xp-progress {
-    background-color: var(--color-navy-700);
+    @apply bg-navy-700;
   }
 
   .xp-progress-bar {
     @apply h-full transition-all duration-300;
-    background: linear-gradient(to right, var(--color-primary-500), var(--color-secondary-500));
+    background: linear-gradient(to right, var(--color-hubtel-orange), var(--color-hubtel-teal));
   }
 
   /* Markdown styles */
   .prose {
-    @apply text-slate-700;
+    color: var(--color-hubtel-navy);
   }
 
   .dark .prose {
@@ -249,7 +191,7 @@
   }
 
   .prose h1, .prose h2, .prose h3, .prose h4 {
-    color: var(--color-navy-900);
+    color: var(--color-hubtel-navy);
     @apply font-bold mb-4;
   }
 
@@ -281,7 +223,7 @@
   }
 
   .dark .prose code {
-    background-color: var(--color-navy-800);
+    @apply bg-navy-800;
   }
 
   .prose pre {
@@ -289,7 +231,7 @@
   }
 
   .dark .prose pre {
-    background-color: var(--color-navy-800);
+    @apply bg-navy-800;
   }
 
   .prose blockquote {
@@ -297,7 +239,7 @@
   }
 
   .dark .prose blockquote {
-    border-color: var(--color-navy-600);
+    @apply border-navy-600;
   }
 }
 
@@ -316,6 +258,6 @@
   }
 
   .dark .glassmorphism {
-    background-color: rgba(24, 32, 40, 0.7);
+    background-color: rgba(0, 27, 54, 0.7);
   }
 }
