@@ -1,11 +1,14 @@
-import { useState, FormEvent } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { useAuthStore } from '../store/useAuthStore';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { AlertCircle, Mail, Lock, User } from 'lucide-react';
 
 const Register = () => {
-  const { user, signUp, error, isLoading } = useAuthStore();
+  // Mock store functionality for demo
+  const user = null;
+  const error = null;
+  const isLoading = false;
+  const signUp = async (email, password, username) => {
+    console.log('Sign up attempt:', { email, password, username });
+  };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -15,153 +18,140 @@ const Register = () => {
     username: false
   });
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setTouched({ email: true, password: true, username: true });
     if (!email || !password || !username) return;
     await signUp(email, password, username);
   };
 
   if (user) {
-    return <Navigate to="/" replace />;
+    return <div>Redirecting...</div>;
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#001B36] px-4">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#001B36]/90 to-black/90" />
-      
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md relative z-10"
-      >
-        <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-8 shadow-xl">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+          {/* Header */}
           <div className="text-center mb-8">
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              className="w-20 h-20 mx-auto mb-6 relative"
-            >
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF6634] to-[#00C9B6] opacity-30 blur-xl animate-pulse" />
-              <div className="relative flex items-center justify-center w-full h-full rounded-2xl bg-gradient-to-br from-[#FF6634] to-[#00C9B6]">
-                <span className="text-2xl font-bold text-white">H</span>
-              </div>
-            </motion.div>
-            
-            <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
-            <p className="text-white/80">Join our community today</p>
+            <div className="w-12 h-12 mx-auto mb-4 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-xl font-semibold text-white">H</span>
+            </div>
+            <h1 className="text-2xl font-semibold text-gray-900 mb-1">Create your account</h1>
+            <p className="text-gray-600 text-sm">Please fill in your details to get started</p>
           </div>
 
+          {/* Error Message */}
           {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-red-500/20 border border-red-400/30 text-red-100 p-4 rounded-xl mb-6"
-            >
+            <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded-md mb-6 text-sm">
               <div className="flex gap-2">
-                <AlertCircle className="w-5 h-5 shrink-0" />
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                 <p>{error}</p>
               </div>
-            </motion.div>
+            </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Form */}
+          <div className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Username
               </label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   onBlur={() => setTouched(prev => ({ ...prev, username: true }))}
-                  className={`w-full pl-12 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#00C9B6]/50 transition-all ${
-                    touched.username && !username ? 'border-red-400/50' : 'border-white/20'
+                  className={`w-full pl-10 pr-3 py-2.5 border rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+                    touched.username && !username ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-white hover:border-gray-400'
                   }`}
-                  placeholder="Choose a username"
+                  placeholder="Enter username"
                   disabled={isLoading}
                 />
               </div>
               {touched.username && !username && (
-                <p className="mt-2 text-sm text-red-400">Username is required</p>
+                <p className="mt-1.5 text-sm text-red-600">Username is required</p>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
-                Email Address
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
-                  className={`w-full pl-12 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#00C9B6]/50 transition-all ${
-                    touched.email && !email ? 'border-red-400/50' : 'border-white/20'
+                  className={`w-full pl-10 pr-3 py-2.5 border rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+                    touched.email && !email ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-white hover:border-gray-400'
                   }`}
-                  placeholder="Enter your email"
+                  placeholder="Enter email address"
                   disabled={isLoading}
                 />
               </div>
               {touched.email && !email && (
-                <p className="mt-2 text-sm text-red-400">Email is required</p>
+                <p className="mt-1.5 text-sm text-red-600">Email is required</p>
               )}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-white/90 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
-                  className={`w-full pl-12 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#00C9B6]/50 transition-all ${
-                    touched.password && !password ? 'border-red-400/50' : 'border-white/20'
+                  className={`w-full pl-10 pr-3 py-2.5 border rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+                    touched.password && !password ? 'border-red-300 bg-red-50' : 'border-gray-300 bg-white hover:border-gray-400'
                   }`}
-                  placeholder="Create a password"
+                  placeholder="Enter password"
                   disabled={isLoading}
                 />
               </div>
               {touched.password && !password && (
-                <p className="mt-2 text-sm text-red-400">Password is required</p>
+                <p className="mt-1.5 text-sm text-red-600">Password is required</p>
               )}
             </div>
 
             <button
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-gradient-to-r from-[#FF6634] to-[#00C9B6] text-white font-medium rounded-xl hover:brightness-110 active:brightness-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium rounded-md disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center gap-2">
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   <span>Creating account...</span>
                 </div>
               ) : (
-                'Create Account'
+                'Create account'
               )}
             </button>
 
-            <p className="text-center text-white/80">
-              Already have an account?{' '}
-              <Link 
-                to="/login"
-                className="text-[#00C9B6] hover:text-[#00C9B6]/80 font-medium transition-colors"
-              >
-                Sign in
-              </Link>
-            </p>
-          </form>
+            <div className="text-center pt-4">
+              <p className="text-sm text-gray-600">
+                Already have an account?{' '}
+                <button 
+                  onClick={() => console.log('Navigate to login')}
+                  className="text-blue-600 hover:text-blue-700 font-medium transition-colors bg-none border-none cursor-pointer"
+                >
+                  Sign in
+                </button>
+              </p>
+            </div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
