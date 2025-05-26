@@ -13,37 +13,8 @@ const Login = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setTouched({ email: true, password: true });
-    
-    // Basic validation
-    if (!email || !password) {
-      return;
-    }
-    
+    if (!email || !password) return;
     await signIn(email, password);
-  };
-
-  const getErrorMessage = () => {
-    if (!error) return '';
-    
-    if (error.includes('Invalid login credentials')) {
-      return 'The email or password you entered is incorrect. Please try again.';
-    }
-    if (error.includes('Email not confirmed')) {
-      return 'Please check your email and confirm your account before signing in.';
-    }
-    if (error.includes('Too many requests')) {
-      return 'Too many login attempts. Please wait a moment before trying again.';
-    }
-    return error;
-  };
-
-  const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  const hasValidationErrors = () => {
-    return (touched.email && (!email || !isValidEmail(email))) ||
-           (touched.password && !password);
   };
 
   if (user) {
@@ -51,147 +22,125 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen h-screen flex items-center justify-center px-4 bg-auth-pattern bg-cover bg-center bg-fixed overflow-hidden">
-      {/* Stronger overlay for better contrast */}
-      <div className="absolute inset-0 bg-gradient-to-br from-hubtel-navy/90 to-black/90 w-full h-full"></div>
+    <div className="min-h-screen flex items-center justify-center bg-[#001B36] px-4">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#001B36]/90 to-black/90" />
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-md w-full relative z-10"
+        className="w-full max-w-md relative z-10"
       >
-        {/* Enhanced glassmorphism container */}
-        <div className="glassmorphism rounded-3xl shadow-glass hover:shadow-glass-hover transition-all duration-500">
-          <div className="p-8 md:p-10">
-            <div className="text-center mb-10">
-              <motion.div
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="relative mx-auto w-20 h-20 mb-6"
-              >
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-hubtel-orange to-hubtel-teal opacity-30 blur-xl animate-gradient"></div>
-                <div className="relative flex items-center justify-center w-full h-full rounded-2xl bg-gradient-to-br from-hubtel-orange to-hubtel-teal shadow-lg">
-                  <span className="text-2xl font-bold text-white">L</span>
-                </div>
-              </motion.div>
-              
-              <h1 className="text-3xl font-bold text-white mb-3">Welcome Back</h1>
-              <p className="text-white/80 text-lg">Sign in to continue your learning journey</p>
-            </div>
-
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-rose-500/20 border border-rose-400/30 text-rose-100 p-4 rounded-xl mb-6 flex items-start gap-3 backdrop-blur-sm"
-              >
-                <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="font-medium">{getErrorMessage()}</p>
-                  <p className="text-sm mt-1 text-rose-200/90">Please check your credentials and try again.</p>
-                </div>
-              </motion.div>
-            )}
-
-            <form onSubmit={handleSubmit} noValidate className="space-y-6">
-              <div className="form-group">
-                <label htmlFor="email" className="block text-sm font-medium mb-2 text-white/90">Email Address</label>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
-                  <input
-                    type="email"
-                    id="email"
-                    required
-                    className={`w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-hubtel-teal/50 focus:border-hubtel-teal/50 transition-all ${
-                      touched.email && (!email || !isValidEmail(email)) ? 'border-rose-400/50 bg-rose-500/10' : ''
-                    }`}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
-                    disabled={isLoading}
-                    placeholder="Enter your email"
-                  />
-                </div>
-                {touched.email && !email && (
-                  <p className="text-sm text-rose-200 mt-2 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    Email is required
-                  </p>
-                )}
-                {touched.email && email && !isValidEmail(email) && (
-                  <p className="text-sm text-rose-200 mt-2 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    Please enter a valid email address
-                  </p>
-                )}
+        <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-8 shadow-xl">
+          <div className="text-center mb-8">
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              className="w-20 h-20 mx-auto mb-6 relative"
+            >
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#FF6634] to-[#00C9B6] opacity-30 blur-xl animate-pulse" />
+              <div className="relative flex items-center justify-center w-full h-full rounded-2xl bg-gradient-to-br from-[#FF6634] to-[#00C9B6]">
+                <span className="text-2xl font-bold text-white">H</span>
               </div>
-
-              <div className="form-group">
-                <div className="flex justify-between items-center mb-2">
-                  <label htmlFor="password" className="block text-sm font-medium text-white/90">Password</label>
-                  <Link 
-                    to="/reset-password" 
-                    className="text-sm text-hubtel-teal hover:text-hubtel-teal/80 transition-colors"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
-                <div className="relative">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
-                  <input
-                    type="password"
-                    id="password"
-                    required
-                    className={`w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-hubtel-teal/50 focus:border-hubtel-teal/50 transition-all ${
-                      touched.password && !password ? 'border-rose-400/50 bg-rose-500/10' : ''
-                    }`}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
-                    disabled={isLoading}
-                    placeholder="Enter your password"
-                  />
-                </div>
-                {touched.password && !password && (
-                  <p className="text-sm text-rose-200 mt-2 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" />
-                    Password is required
-                  </p>
-                )}
-              </div>
-
-              <motion.button
-                type="submit"
-                whileHover={{ scale: isLoading ? 1 : 1.02 }}
-                whileTap={{ scale: isLoading ? 1 : 0.98 }}
-                className="w-full h-12 bg-gradient-to-r from-hubtel-orange to-hubtel-teal text-white font-semibold text-lg rounded-xl hover:brightness-110 active:brightness-90 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:brightness-100 transition-all duration-300 shadow-lg"
-                disabled={isLoading || hasValidationErrors()}
-              >
-                {isLoading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Signing in...</span>
-                  </div>
-                ) : (
-                  'Sign In'
-                )}
-              </motion.button>
-            </form>
-
-            <div className="mt-8 text-center">
-              <p className="text-white/80">
-                Don't have an account?{' '}
-                <Link 
-                  to="/register" 
-                  className="text-hubtel-teal hover:text-hubtel-teal/80 font-medium transition-colors"
-                >
-                  Sign up
-                </Link>
-              </p>
-            </div>
+            </motion.div>
+            
+            <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
+            <p className="text-white/80">Sign in to continue to your account</p>
           </div>
+
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-red-500/20 border border-red-400/30 text-red-100 p-4 rounded-xl mb-6"
+            >
+              <div className="flex gap-2">
+                <AlertCircle className="w-5 h-5 shrink-0" />
+                <p>{error}</p>
+              </div>
+            </motion.div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-white/90 mb-2">
+                Email Address
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
+                  className={`w-full pl-12 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#00C9B6]/50 transition-all ${
+                    touched.email && !email ? 'border-red-400/50' : 'border-white/20'
+                  }`}
+                  placeholder="Enter your email"
+                  disabled={isLoading}
+                />
+              </div>
+              {touched.email && !email && (
+                <p className="mt-2 text-sm text-red-400">Email is required</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-white/90 mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
+                  className={`w-full pl-12 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#00C9B6]/50 transition-all ${
+                    touched.password && !password ? 'border-red-400/50' : 'border-white/20'
+                  }`}
+                  placeholder="Enter your password"
+                  disabled={isLoading}
+                />
+              </div>
+              {touched.password && !password && (
+                <p className="mt-2 text-sm text-red-400">Password is required</p>
+              )}
+            </div>
+
+            <div className="flex justify-end">
+              <Link 
+                to="/reset-password"
+                className="text-sm text-[#00C9B6] hover:text-[#00C9B6]/80 transition-colors"
+              >
+                Forgot Password?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-3 px-4 bg-gradient-to-r from-[#FF6634] to-[#00C9B6] text-white font-medium rounded-xl hover:brightness-110 active:brightness-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              {isLoading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Signing in...</span>
+                </div>
+              ) : (
+                'Sign In'
+              )}
+            </button>
+
+            <p className="text-center text-white/80">
+              Don't have an account?{' '}
+              <Link 
+                to="/register"
+                className="text-[#00C9B6] hover:text-[#00C9B6]/80 font-medium transition-colors"
+              >
+                Sign up
+              </Link>
+            </p>
+          </form>
         </div>
       </motion.div>
     </div>
