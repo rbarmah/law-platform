@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AlertCircle, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 
 const Register = () => {
@@ -186,13 +187,13 @@ const Register = () => {
                 <div className="text-center pt-6 border-t border-slate-200/60">
                   <p className="text-slate-600 font-medium">
                     Already have an account?{' '}
-                    <button 
-                      onClick={() => window.location.href = '/login'}
+                    <Link 
+                      to="/login"
                       className="text-teal-600 hover:text-teal-700 font-semibold transition-colors relative group"
                     >
                       Sign in
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-teal-600 group-hover:w-full transition-all duration-300"></span>
-                    </button>
+                    </Link>
                   </p>
                 </div>
               </div>
