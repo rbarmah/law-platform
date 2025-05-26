@@ -8,12 +8,14 @@ type AuthState = {
   isLoading: boolean;
   error: string | null;
   session: any;
+  selectedProgram: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, username: string) => Promise<void>;
   signOut: () => Promise<void>;
   refreshUser: () => Promise<void>;
   resetPassword: (email: string) => Promise<boolean>;
   updatePassword: (password: string) => Promise<boolean>;
+  setSelectedProgram: (programId: string) => void;
 };
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -21,12 +23,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isLoading: true,
   error: null,
   session: null,
+  selectedProgram: null,
   
+  setSelectedProgram: (programId: string) => {
+    set({ selectedProgram: programId });
+    localStorage.setItem('selectedProgram', programId);
+  },
+
   signIn: async (email, password) => {
     set({ isLoading: true, error: null });
     
     try {
-      // First authenticate the user
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -35,16 +42,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       if (error) throw error;
       
       if (data.user) {
-        // Check if the user profile exists in the users table
         const { data: userData, error: userError } = await supabase
           .from('users')
           .select('*')
           .eq('id', data.user.id)
-          .maybeSingle(); // Use maybeSingle instead of single
+          .maybeSingle();
         
         if (userError) throw userError;
         
-        // If no user profile exists, create one
         if (!userData) {
           const { data: newUserData, error: insertError } = await supabase
             .from('users')
@@ -61,22 +66,22 @@ export const useAuthStore = create<AuthState>((set, get) => ({
             
           if (insertError) throw insertError;
           
-          // Update user streak
           await updateStreak(data.user.id);
           
           set({ 
             user: newUserData, 
             session: data.session,
-            isLoading: false 
+            isLoading: false,
+            selectedProgram: localStorage.getItem('selectedProgram')
           });
         } else {
-          // User profile exists, update streak and set state
           await updateStreak(data.user.id);
           
           set({ 
             user: userData, 
             session: data.session,
-            isLoading: false 
+            isLoading: false,
+            selectedProgram: localStorage.getItem('selectedProgram')
           });
         }
       } else {
@@ -95,13 +100,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ isLoading: true, error: null });
     
     try {
-      // First create the auth user with sign up
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: { username }, // Store username in auth metadata
-          emailRedirectTo: window.location.origin // Add redirect URL for email verification
+          data: { username },
+          emailRedirectTo: window.location.origin
         }
       });
       
@@ -111,7 +115,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         throw new Error('Failed to create auth user');
       }
       
-      // Check if email confirmation is required
       if (authData.user.identities && authData.user.identities.length === 0) {
         set({
           isLoading: false,
@@ -120,7 +123,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         return;
       }
       
-      // Sign in immediately after sign up to get a valid session
       const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -128,7 +130,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       
       if (signInError) throw signInError;
       
-      // Now insert the user record with the active session
       const { data: userData, error: insertError } = await supabase
         .from('users')
         .insert({
@@ -151,11 +152,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ 
         user: userData, 
         session: signInData.session,
-        isLoading: false 
+        isLoading: false,
+        selectedProgram: localStorage.getItem('selectedProgram')
       });
     } catch (error: any) {
       console.error("Signup error:", error);
-      // Ensure we're signed out if anything fails
       await supabase.auth.signOut();
       set({ 
         error: error.message || 'Failed to sign up', 
@@ -177,8 +178,10 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       set({ 
         user: null, 
         session: null,
-        isLoading: false 
+        isLoading: false,
+        selectedProgram: null
       });
+      localStorage.removeItem('selectedProgram');
     } catch (error: any) {
       set({ 
         error: error.message || 'Failed to sign out', 
@@ -197,12 +200,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         set({ 
           user: null, 
           session: null,
-          isLoading: false 
+          isLoading: false,
+          selectedProgram: localStorage.getItem('selectedProgram')
         });
         return;
       }
 
-      // Query the users table for the profile
       const { data: userData, error: userError } = await supabase
         .from('users')
         .select('*')
@@ -211,7 +214,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       
       if (userError) throw userError;
       
-      // If user profile doesn't exist, create one
       if (!userData) {
         const { data: newUserData, error: insertError } = await supabase
           .from('users')
@@ -232,14 +234,16 @@ export const useAuthStore = create<AuthState>((set, get) => ({
           user: newUserData, 
           session,
           isLoading: false,
-          error: null
+          error: null,
+          selectedProgram: localStorage.getItem('selectedProgram')
         });
       } else {
         set({ 
           user: userData, 
           session,
           isLoading: false,
-          error: null
+          error: null,
+          selectedProgram: localStorage.getItem('selectedProgram')
         });
       }
     } catch (error: any) {
