@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    @apply bg-slate-50;
+    @apply bg-hubtel-navy;
   }
   
   .dark {
@@ -12,7 +12,11 @@
   }
   
   body {
-    @apply antialiased font-sans;
+    @apply antialiased font-sans bg-hubtel-navy m-0 p-0;
+  }
+  
+  html {
+    @apply bg-hubtel-navy m-0 p-0;
   }
   
   h1 {
