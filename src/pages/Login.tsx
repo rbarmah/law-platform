@@ -51,9 +51,9 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-auth-pattern bg-cover bg-center bg-fixed">
+    <div className="min-h-screen h-screen flex items-center justify-center px-4 bg-auth-pattern bg-cover bg-center bg-fixed overflow-hidden">
       {/* Stronger overlay for better contrast */}
-      <div className="absolute inset-0 bg-gradient-to-br from-hubtel-navy/90 to-black/90"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-hubtel-navy/90 to-black/90 w-full h-full"></div>
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
