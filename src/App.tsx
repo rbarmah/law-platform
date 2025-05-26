@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './store/useAuthStore';
+import { useProgramStore } from './store/useProgramStore';
 import Navigation from './components/Navigation';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProgramSelection from './pages/ProgramSelection';
 import QuizPage from './pages/QuizPage';
 import Profile from './pages/Profile';
 import Leaderboard from './pages/Leaderboard';
@@ -19,6 +21,7 @@ import './index.css';
 
 function App() {
   const { isLoading, refreshUser } = useAuthStore();
+  const { selectedProgram } = useProgramStore();
 
   useEffect(() => {
     refreshUser();
@@ -38,10 +41,15 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/update-password" element={<UpdatePassword />} />
+            <Route path="/program-selection" element={
+              <ProtectedRoute>
+                <ProgramSelection />
+              </ProtectedRoute>
+            } />
             
             <Route path="/" element={
               <ProtectedRoute>
-                <Dashboard />
+                {selectedProgram ? <Dashboard /> : <Navigate to="/program-selection" replace />}
               </ProtectedRoute>
             } />
             
