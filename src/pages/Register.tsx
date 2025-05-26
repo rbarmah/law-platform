@@ -1,16 +1,10 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, FormEvent } from 'react';
+import { Navigate, Link } from 'react-router-dom';
 import { AlertCircle, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { useAuthStore } from '../store/useAuthStore';
 
 const Register = () => {
-  // Mock store functionality for demo
-  const user = null;
-  const error = null;
-  const isLoading = false;
-  const signUp = async (email, password, username) => {
-    console.log('Sign up attempt:', { email, password, username });
-  };
-
+  const { user, signUp, error, isLoading } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -21,14 +15,15 @@ const Register = () => {
     username: false
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     setTouched({ email: true, password: true, username: true });
     if (!email || !password || !username) return;
     await signUp(email, password, username);
   };
 
   if (user) {
-    return <div>Redirecting...</div>;
+    return <Navigate to="/" replace />;
   }
 
   return (
@@ -80,7 +75,7 @@ const Register = () => {
               )}
 
               {/* Form */}
-              <div className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Username Field */}
                 <div className="group">
                   <label className="block text-sm font-semibold text-slate-700 mb-3">
@@ -166,8 +161,7 @@ const Register = () => {
                 {/* Submit Button */}
                 <div className="pt-2">
                   <button
-                    type="button"
-                    onClick={handleSubmit}
+                    type="submit"
                     disabled={isLoading}
                     className="group relative w-full py-4 px-6 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 active:from-teal-700 active:to-teal-800 text-white font-semibold rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg shadow-teal-500/25 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-0.5"
                   >
@@ -196,7 +190,7 @@ const Register = () => {
                     </Link>
                   </p>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
 

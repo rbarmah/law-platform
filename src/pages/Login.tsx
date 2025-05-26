@@ -1,28 +1,24 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
+import { Navigate, Link } from 'react-router-dom';
 import { AlertCircle, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { useAuthStore } from '../store/useAuthStore';
 
 const Login = () => {
-  // Mock store functionality for demo
-  const user = null;
-  const error = null;
-  const isLoading = false;
-  const signIn = async (email, password) => {
-    console.log('Sign in attempt:', { email, password });
-  };
-
+  const { user, signIn, error, isLoading } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [touched, setTouched] = useState({ email: false, password: false });
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     setTouched({ email: true, password: true });
     if (!email || !password) return;
     await signIn(email, password);
   };
 
   if (user) {
-    return <div>Redirecting...</div>;
+    return <Navigate to="/" replace />;
   }
 
   return (
@@ -74,7 +70,7 @@ const Login = () => {
               )}
 
               {/* Form */}
-              <div className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Email Field */}
                 <div className="group">
                   <label className="block text-sm font-semibold text-slate-700 mb-3">
@@ -134,20 +130,19 @@ const Login = () => {
 
                 {/* Forgot Password Link */}
                 <div className="flex justify-end">
-                  <button 
-                    onClick={() => window.location.href = '/reset-password'}
+                  <Link 
+                    to="/reset-password"
                     className="text-sm text-teal-600 hover:text-teal-700 font-semibold transition-colors relative group"
                   >
                     Forgot password?
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-teal-600 group-hover:w-full transition-all duration-300"></span>
-                  </button>
+                  </Link>
                 </div>
 
                 {/* Submit Button */}
                 <div className="pt-2">
                   <button
-                    type="button"
-                    onClick={handleSubmit}
+                    type="submit"
                     disabled={isLoading}
                     className="group relative w-full py-4 px-6 bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 active:from-teal-700 active:to-teal-800 text-white font-semibold rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg shadow-teal-500/25 hover:shadow-xl hover:shadow-teal-500/30 hover:-translate-y-0.5"
                   >
@@ -167,16 +162,16 @@ const Login = () => {
                 <div className="text-center pt-6 border-t border-slate-200/60">
                   <p className="text-slate-600 font-medium">
                     Don't have an account?{' '}
-                    <button 
-                      onClick={() => window.location.href = '/register'}
+                    <Link 
+                      to="/register"
                       className="text-teal-600 hover:text-teal-700 font-semibold transition-colors relative group"
                     >
                       Sign up
                       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-teal-600 group-hover:w-full transition-all duration-300"></span>
-                    </button>
+                    </Link>
                   </p>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
 
