@@ -4,25 +4,25 @@
 
 @layer base {
   body {
-    @apply antialiased font-sans;
+    @apply antialiased font-sans bg-slate-50 text-navy-800 dark:bg-navy-900 dark:text-slate-100;
   }
 
   h1 {
-    @apply text-3xl font-bold mb-4;
+    @apply text-3xl font-bold mb-4 text-navy-900 dark:text-white;
   }
 
   h2 {
-    @apply text-2xl font-bold mb-3;
+    @apply text-2xl font-bold mb-3 text-navy-800 dark:text-slate-100;
   }
 
   h3 {
-    @apply text-xl font-bold mb-2;
+    @apply text-xl font-bold mb-2 text-navy-700 dark:text-slate-200;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg;
+    @apply bg-white dark:bg-navy-800 rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg border border-slate-100 dark:border-navy-700;
   }
 
   .btn {
@@ -30,11 +30,11 @@
   }
 
   .btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800;
+    @apply bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700;
   }
 
   .btn-secondary {
-    @apply bg-slate-200 text-slate-800 hover:bg-slate-300 active:bg-slate-400 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600;
+    @apply bg-secondary-500 text-white hover:bg-secondary-600 active:bg-secondary-700;
   }
 
   .btn-success {
@@ -46,7 +46,7 @@
   }
 
   .input {
-    @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-800 dark:border-slate-700;
+    @apply px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-transparent dark:bg-navy-800 dark:border-navy-600 dark:text-white;
   }
 
   .badge {
@@ -54,19 +54,19 @@
   }
 
   .badge-primary {
-    @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300;
+    @apply bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300;
   }
 
   .badge-success {
-    @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300;
+    @apply bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300;
   }
 
   .badge-warning {
-    @apply bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300;
+    @apply bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300;
   }
 
   .badge-danger {
-    @apply bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-300;
+    @apply bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300;
   }
 
   .container {
@@ -78,17 +78,17 @@
   }
 
   .form-label {
-    @apply block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1;
+    @apply block text-sm font-medium text-navy-700 dark:text-slate-300 mb-1;
   }
 
   /* Quiz related styles */
   .quiz-option {
     @apply relative block w-full p-4 mb-3 border rounded-lg transition-all cursor-pointer
-      border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500;
+      border-slate-200 dark:border-navy-700 hover:border-secondary-500 dark:hover:border-secondary-500;
   }
 
   .quiz-option.selected {
-    @apply border-blue-500 dark:border-blue-500 bg-blue-50 dark:bg-blue-900/30;
+    @apply border-secondary-500 dark:border-secondary-500 bg-secondary-50 dark:bg-secondary-900/30;
   }
 
   .quiz-option.correct {
@@ -110,20 +110,20 @@
 
   /* XP progress bar */
   .xp-progress {
-    @apply h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden;
+    @apply h-2 bg-slate-200 dark:bg-navy-700 rounded-full overflow-hidden;
   }
 
   .xp-progress-bar {
-    @apply h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-300;
+    @apply h-full bg-gradient-to-r from-primary-500 to-secondary-500 transition-all duration-300;
   }
 
   /* Markdown styles */
   .prose {
-    @apply text-slate-700 dark:text-slate-300;
+    @apply text-navy-700 dark:text-slate-300;
   }
 
   .prose h1, .prose h2, .prose h3, .prose h4 {
-    @apply text-slate-900 dark:text-white font-bold mb-4;
+    @apply text-navy-900 dark:text-white font-bold mb-4;
   }
 
   .prose p {
@@ -143,15 +143,15 @@
   }
 
   .prose code {
-    @apply bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded;
+    @apply bg-slate-100 dark:bg-navy-800 px-1 py-0.5 rounded;
   }
 
   .prose pre {
-    @apply bg-slate-100 dark:bg-slate-800 p-4 rounded-lg mb-4 overflow-x-auto;
+    @apply bg-slate-100 dark:bg-navy-800 p-4 rounded-lg mb-4 overflow-x-auto;
   }
 
   .prose blockquote {
-    @apply border-l-4 border-slate-300 dark:border-slate-600 pl-4 italic;
+    @apply border-l-4 border-slate-300 dark:border-navy-600 pl-4 italic;
   }
 }
 
@@ -166,6 +166,6 @@
   }
 
   .glassmorphism {
-    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md;
+    @apply bg-white/70 dark:bg-navy-900/70 backdrop-blur-md;
   }
 }
