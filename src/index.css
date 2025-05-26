@@ -166,7 +166,10 @@
   
   /* Glassmorphism utility */
   .glassmorphism {
-    @apply bg-white/70 dark:bg-hubtel-navy/70 backdrop-blur-md;
+    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
 }
 
@@ -182,23 +185,26 @@
   
   /* Auth page background pattern */
   .bg-auth-pattern {
+    background: linear-gradient(135deg, #001B36 0%, #000000 100%);
     background-image: 
-      radial-gradient(circle at 25% 25%, rgba(0, 201, 182, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(255, 102, 52, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(0, 27, 54, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 20% 20%, rgba(0, 201, 182, 0.15) 0%, transparent 60%),
+      radial-gradient(circle at 80% 80%, rgba(255, 102, 52, 0.15) 0%, transparent 60%),
+      radial-gradient(circle at 40% 60%, rgba(0, 201, 182, 0.1) 0%, transparent 40%);
   }
   
   /* Glass shadow effects */
   .shadow-glass {
     box-shadow: 
-      0 8px 32px 0 rgba(0, 0, 0, 0.37),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
+      0 8px 32px 0 rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
   
   .shadow-glass-hover {
     box-shadow: 
-      0 16px 64px 0 rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(255, 255, 255, 0.15);
+      0 16px 64px 0 rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.15);
   }
   
   /* Gradient animation */
