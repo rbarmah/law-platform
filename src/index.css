@@ -28,6 +28,20 @@
   }
 }
 
+@layer utilities {
+  .bg-hubtel-orange {
+    @apply bg-[#FF6634];
+  }
+
+  .bg-hubtel-teal {
+    @apply bg-[#00C9B6];
+  }
+
+  .bg-hubtel-navy {
+    @apply bg-[#001B36];
+  }
+}
+
 @layer components {
   .card {
     @apply bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg border border-slate-100;
