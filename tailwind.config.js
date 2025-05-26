@@ -8,9 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'hubtel-orange': '#FF6634',
-        'hubtel-teal': '#00C9B6',
-        'hubtel-navy': '#001B36'
+        hubtel: {
+          orange: '#FF6634',
+          teal: '#00C9B6',
+          navy: '#001B36'
+        }
       }
     }
   },
