@@ -50,7 +50,7 @@ const Register = () => {
   };
 
   if (user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/\" replace />;
   }
 
   return (
