@@ -49,7 +49,7 @@ function App() {
             
             <Route path="/" element={
               <ProtectedRoute>
-                {selectedProgram ? <Dashboard /> : <Navigate to="/program-selection" replace />}
+                {selectedProgram ? <Dashboard /> : <Navigate to="/program-selection\" replace />}
               </ProtectedRoute>
             } />
             
